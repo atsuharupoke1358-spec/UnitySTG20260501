@@ -39,7 +39,7 @@ public class ChaseEnemy : MonoBehaviour
             if (Vector3.Distance(enemy.transform.position, targetPosition) < 0.1f)
             {
                 currentPointIndex++;
-                if (currentPointIndex >= patrolPoint.Length)
+                if (currentPointIndex >= patrolPoints.Length)
                 {
                     currentPointIndex = 0;
                 }
@@ -47,6 +47,10 @@ public class ChaseEnemy : MonoBehaviour
             }
             enemy.moveDirection = (targetPosition - enemy.transform.position).normalized;
             enemy.transform.position += enemy.moveDirection * enemy.searchSpeed * Time.deltaTime;
+            if (Vector3.Distance(enemy.transform.position, enemy.player.position) <= enemy.chaseRange)
+            {
+                enemy.ChangeState(enemy.ChaseState);
+            }
         }
         public void OnExit(ChaseEnemy enemy)
         {
@@ -61,7 +65,17 @@ public class ChaseEnemy : MonoBehaviour
         }
         public void OnUpdate(ChaseEnemy enemy)
         {
-
+            Vector3 dir = (enemy.player.position - enemy.transform.position).normalized;
+            enemy.transform.positon += dir * enemy.chaseSpeed * Time.deltaTime;
+            float distance = Vector3.Distance(enemy.transform.position, enemy.player.position);
+            if (distance <= enemy.chaseRange)
+            {
+                enemy.ChangeState(enemy.AttackState);
+            }
+            if (enemy.chaseRange <= distance)
+            {
+                enemy.ChangeState(enemy.SearchState);
+            }
         }
         public void OnExit(ChaseEnemy enemy)
         {
@@ -89,5 +103,16 @@ public class ChaseEnemy : MonoBehaviour
         SearchState = new SearchState();
         ChaseState = new ChaseState();
         AttackState = new AttackState();
+        ChangeState(SearchState);
+    }
+    void Update()
+    {
+        _currentState?.OnUpdate(this);
+    }
+    public void ChangeState(IChaseEnemyState newState)
+    {
+        _currentState?.OnExit(this);
+        _currentState = newState;
+        _currentState?.OnEnter(this);
     }
 }

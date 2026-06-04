@@ -29,7 +29,7 @@ public class EnemyShot : MonoBehaviour
         }
     }
 
-    void Shoot()
+    public void Shoot()
     {
         switch (shotData.shotType)
         {
