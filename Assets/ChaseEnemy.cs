@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ChaseEnemy : MonoBehaviour
 {
-    public Transform player;
+    public GameObject player;
     public float searchSpeed = 2f;
     public float chaseSpeed = 4f;
-    public float chaseRange = 5f;
-    public float attackRange = 3f;
+    public float chaseRange = 2f;
+    public float attackRange = 1f;
+    public Vector3 moveDirection { get; set; }
+    public EnemyShot enemyShot { get; private set; }
+    public Enemy Enemy { get; private set; }
     private IChaseEnemyState _currentState;
     public IChaseEnemyState SearchState { get; private set; }
     public IChaseEnemyState ChaseState { get; private set; }
@@ -19,7 +22,7 @@ public class ChaseEnemy : MonoBehaviour
         void OnUpdate(ChaseEnemy enemy);
         void OnExit(ChaseEnemy enemy);
     }
-    public class SearchState : IChaseEnemyState
+    public class EnemySearchState : IChaseEnemyState
     {
         private Vector3[] patrolPoints = new Vector3[]
         {
@@ -47,7 +50,7 @@ public class ChaseEnemy : MonoBehaviour
             }
             enemy.moveDirection = (targetPosition - enemy.transform.position).normalized;
             enemy.transform.position += enemy.moveDirection * enemy.searchSpeed * Time.deltaTime;
-            if (Vector3.Distance(enemy.transform.position, enemy.player.position) <= enemy.chaseRange)
+            if (Vector3.Distance(enemy.transform.position, enemy.player.transform.position) <= enemy.chaseRange)
             {
                 enemy.ChangeState(enemy.ChaseState);
             }
@@ -57,7 +60,7 @@ public class ChaseEnemy : MonoBehaviour
 
         }
     }
-    public class ChaseState : IChaseEnemyState
+    public class EnemyChaseState : IChaseEnemyState
     {
         public void OnEnter(ChaseEnemy enemy)
         {
@@ -65,14 +68,15 @@ public class ChaseEnemy : MonoBehaviour
         }
         public void OnUpdate(ChaseEnemy enemy)
         {
-            Vector3 dir = (enemy.player.position - enemy.transform.position).normalized;
-            enemy.transform.positon += dir * enemy.chaseSpeed * Time.deltaTime;
-            float distance = Vector3.Distance(enemy.transform.position, enemy.player.position);
-            if (distance <= enemy.chaseRange)
+            Vector3 dir = (enemy.player.transform.position - enemy.transform.position).normalized;
+            enemy.transform.position += dir * enemy.chaseSpeed * Time.deltaTime;
+            float distance = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
+            if (distance <= enemy.attackRange)
             {
+                Debug.Log("go attackestate");
                 enemy.ChangeState(enemy.AttackState);
             }
-            if (enemy.chaseRange <= distance)
+            else if (distance >= enemy.chaseRange)
             {
                 enemy.ChangeState(enemy.SearchState);
             }
@@ -82,32 +86,48 @@ public class ChaseEnemy : MonoBehaviour
 
         }
     }
-    public class AttackState : IChaseEnemyState
+    public class EnemyAttackState : IChaseEnemyState
     {
         public void OnEnter(ChaseEnemy enemy)
         {
-
+            enemy.enemyShot.canShoot = true;
         }
         public void OnUpdate(ChaseEnemy enemy)
         {
-
+            if (Vector3.Distance(enemy.transform.position, enemy.player.transform.position) >= enemy.attackRange)
+            {
+                Debug.Log("go changestate");
+                enemy.ChangeState(enemy.ChaseState);
+            }
+            //Vector3 dir = (enemy.player.position - enemy.transform.position).normalized;
+            //enemy.transform.position += dir * (enemy.chaseSpeed * 0.3f) * Time.deltaTime;
         }
         public void OnExit(ChaseEnemy enemy)
         {
-
+            enemy.enemyShot.canShoot = false;
         }
     }
     void Start()
     {
         Enemy = GetComponent<Enemy>();
-        SearchState = new SearchState();
-        ChaseState = new ChaseState();
-        AttackState = new AttackState();
+        enemyShot = GetComponent<EnemyShot>();
+
+        enemyShot.canShoot = false;
+
+        SearchState = new EnemySearchState();
+        ChaseState = new EnemyChaseState();
+        AttackState = new EnemyAttackState();
         ChangeState(SearchState);
     }
     void Update()
     {
+        if (this.Enemy.hp <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
         _currentState?.OnUpdate(this);
+        Debug.Log(_currentState);
     }
     public void ChangeState(IChaseEnemyState newState)
     {

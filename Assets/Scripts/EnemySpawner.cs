@@ -7,14 +7,16 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyAimPrefab;
     public GameObject enemySpiralPrefab;
     public GameObject enemyClusterAimPrefab;
+    public GameObject chaseEnemyPrefab;
     public GameObject bossPrefab;
     public GameObject hpBar;
     public Image hpBarFill;
     IEnumerator Start()
     {
-
+        SpawnChaseEnemy(chaseEnemyPrefab, Vector3.zero);
+        yield return new WaitForSeconds(2f);
         // 右から3体
-        for (int i = 0; i < 3; i++)
+        /*for (int i = 0; i < 3; i++)
         {
             SpawnEnemy(enemyAimPrefab, new Vector3(GameConfig.Right + GameConfig.SpawnMargin, 4 - i, 0), Vector2.left);
             yield return new WaitForSeconds(0.5f);
@@ -45,12 +47,16 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         //ボス戦
-        SpawnBoss();
+        SpawnBoss();*/
     }
     void SpawnEnemy(GameObject prefab, Vector3 pos, Vector2 dir)
     {
         GameObject enemy = Instantiate(prefab, pos, Quaternion.identity);
         enemy.GetComponent<Enemy>().moveDirection = dir;
+    }
+    void SpawnChaseEnemy(GameObject prefab, Vector3 pos)
+    {
+        GameObject enemy = Instantiate(prefab, pos, Quaternion.identity);
     }
     void SpawnBoss()
     {

@@ -8,8 +8,8 @@ public class EnemyShot : MonoBehaviour
     Transform player;
     float angle1 = 0f;
     float angle2 = 180f;
-
     float timer;
+    public bool canShoot = true;
 
     void Start()
     {
@@ -20,10 +20,8 @@ public class EnemyShot : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-
-        if (timer >= shotData.fireRate)
+        if (canShoot && timer >= shotData.fireRate)
         {
-            Debug.Log(shotData.fireRate);
             Shoot();
             timer = 0;
         }
