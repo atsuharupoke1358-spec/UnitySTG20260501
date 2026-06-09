@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81a7e7399207f420fb5f79792fddcb18, type: 3}
-  m_Name: BossSpairalShot
+  m_Script: {fileID: 11500000, guid: 04d301e6f951743b2aa40f16f101df80, type: 3}
+  m_Name: BossNWayBullet
   m_EditorClassIdentifier: 
-  shotType: 1
-  bulletData: {fileID: 11400000, guid: e691a4182c81149558d7621fca813855, type: 2}
-  shotCount: 1
-  spreadAngle: 1
-  spiralSpeed: 16
-  clusterRadius: 1.5
-  fireRate: 0.015
+  sprite: {fileID: -2413806693520163455, guid: 5fac3156251ea444ca796469cc02f122, type: 3}
+  color: {r: 0.24152224, g: 1, b: 0.23113209, a: 1}
+  speed: 2
+  damage: 1
+  scale: 0.45

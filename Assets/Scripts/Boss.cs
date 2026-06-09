@@ -8,11 +8,13 @@ public class Boss : MonoBehaviour
     public ShotData phase1;
     public ShotData phase2;
     public ShotData phase3;
+    public ShotData phase4;
     public enum BossState
     {
         Phase1,
         Phase2,
-        Phase3
+        Phase3,
+        Phase4
     }
     public Enemy Enemy { get; private set; }
     BossState state;
@@ -25,6 +27,7 @@ public class Boss : MonoBehaviour
     public IBossState Phase1State { get; private set; }
     public IBossState Phase2State { get; private set; }
     public IBossState Phase3State { get; private set; }
+    public IBossState Phase4State { get; private set; }
     public IBossState DeathState { get; private set; }
     public interface IBossState
     {
@@ -42,7 +45,7 @@ public class Boss : MonoBehaviour
 
         public void OnUpdate(Boss boss)
         {
-            if (boss.Enemy.hp <= 1000)
+            if (boss.Enemy.hp <= 2000)
             {
                 boss.ChangeState(boss.Phase2State);
             }
@@ -60,7 +63,7 @@ public class Boss : MonoBehaviour
 
         public void OnUpdate(Boss boss)
         {
-            if (boss.Enemy.hp <= 500)
+            if (boss.Enemy.hp <= 1800)
             {
                 boss.ChangeState(boss.Phase3State);
             }
@@ -74,6 +77,23 @@ public class Boss : MonoBehaviour
         public void OnEnter(Boss boss)
         {
             boss.StartCoroutine(boss.ChangeStateWithDelay(boss.phase3));
+        }
+
+        public void OnUpdate(Boss boss)
+        {
+            if (boss.Enemy.hp <= 1500)
+            {
+                boss.ChangeState(boss.Phase4State);
+            }
+        }
+
+        public void OnExit(Boss boss) { }
+    }
+    public class BossPhase4State : IBossState
+    {
+        public void OnEnter(Boss boss)
+        {
+            boss.StartCoroutine(boss.ChangeStateWithDelay(boss.phase4));
         }
 
         public void OnUpdate(Boss boss) { }
@@ -101,6 +121,7 @@ public class Boss : MonoBehaviour
         Phase1State = new BossPhase1State();
         Phase2State = new BossPhase2State();
         Phase3State = new BossPhase3State();
+        Phase4State = new BossPhase4State();
         DeathState = new BossDeathState();
 
         shot.shotData = phase1;
@@ -118,30 +139,6 @@ public class Boss : MonoBehaviour
             return;
         }
         _currentState?.OnUpdate(this);
-
-        /*if (state == BossState.Phase1 && enemy.hp <= 1000 && !isChanging)
-        {
-            isChanging = true;
-            StartCoroutine(ChangeStateWithDelay(BossState.Phase2, phase2));
-        }
-
-        if (state == BossState.Phase2 && enemy.hp <= 500 && !isChanging)
-        {
-            isChanging = true;
-            StartCoroutine(ChangeStateWithDelay(BossState.Phase3, phase3));
-        }
-        if (enemy.hp <= 0)
-        {
-            Debug.Log("BossDeath開始");
-
-            enabled = false;
-
-            ClearBullets();
-
-            StartCoroutine(BossDeath());
-
-            return;
-        }*/
     }
     public void ChangeState(IBossState nextState)
     {

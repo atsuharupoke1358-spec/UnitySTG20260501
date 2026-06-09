@@ -7,7 +7,7 @@ public class ChaseEnemy : MonoBehaviour
     public GameObject player;
     public float searchSpeed = 2f;
     public float chaseSpeed = 4f;
-    public float chaseRange = 2f;
+    public float chaseRange = 3f;
     public float attackRange = 1f;
     public Vector3 moveDirection { get; set; }
     public EnemyShot enemyShot { get; private set; }
@@ -38,6 +38,7 @@ public class ChaseEnemy : MonoBehaviour
         }
         public void OnUpdate(ChaseEnemy enemy)
         {
+            bool hasPlayer = enemy.player != null;
             Vector3 targetPosition = patrolPoints[currentPointIndex];
             if (Vector3.Distance(enemy.transform.position, targetPosition) < 0.1f)
             {
@@ -50,7 +51,7 @@ public class ChaseEnemy : MonoBehaviour
             }
             enemy.moveDirection = (targetPosition - enemy.transform.position).normalized;
             enemy.transform.position += enemy.moveDirection * enemy.searchSpeed * Time.deltaTime;
-            if (Vector3.Distance(enemy.transform.position, enemy.player.transform.position) <= enemy.chaseRange)
+            if (hasPlayer && Vector3.Distance(enemy.transform.position, enemy.player.transform.position) <= enemy.chaseRange)
             {
                 enemy.ChangeState(enemy.ChaseState);
             }
@@ -68,6 +69,11 @@ public class ChaseEnemy : MonoBehaviour
         }
         public void OnUpdate(ChaseEnemy enemy)
         {
+            if (enemy.player == null)
+            {
+                enemy.ChangeState(enemy.SearchState);
+                return;
+            }
             Vector3 dir = (enemy.player.transform.position - enemy.transform.position).normalized;
             enemy.transform.position += dir * enemy.chaseSpeed * Time.deltaTime;
             float distance = Vector3.Distance(enemy.transform.position, enemy.player.transform.position);
@@ -94,6 +100,11 @@ public class ChaseEnemy : MonoBehaviour
         }
         public void OnUpdate(ChaseEnemy enemy)
         {
+            if (enemy.player == null)
+            {
+                enemy.ChangeState(enemy.SearchState);
+                return;
+            }
             if (Vector3.Distance(enemy.transform.position, enemy.player.transform.position) >= enemy.attackRange)
             {
                 Debug.Log("go changestate");
@@ -113,6 +124,11 @@ public class ChaseEnemy : MonoBehaviour
         enemyShot = GetComponent<EnemyShot>();
 
         enemyShot.canShoot = false;
+        Player realPlayer = FindFirstObjectByType<Player>();
+        if (realPlayer != null)
+        {
+            player = realPlayer.gameObject;
+        }
 
         SearchState = new EnemySearchState();
         ChaseState = new EnemyChaseState();
@@ -127,7 +143,6 @@ public class ChaseEnemy : MonoBehaviour
             return;
         }
         _currentState?.OnUpdate(this);
-        Debug.Log(_currentState);
     }
     public void ChangeState(IChaseEnemyState newState)
     {

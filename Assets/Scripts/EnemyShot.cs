@@ -42,6 +42,10 @@ public class EnemyShot : MonoBehaviour
             case ShotType.ClusterAim:
                 ShootClusterAim();
                 break;
+
+            case ShotType.NWay:
+                ShootNWay();
+                break;
         }
     }
 
@@ -131,6 +135,46 @@ public class EnemyShot : MonoBehaviour
 
             SpawnBullet(baseDir, randomOffset);
         }
-
     }
+
+    /*float baseAngle = -90f;
+    for (int i = 0; i < shotData.shotCount; i++)
+    {
+        float angleOffset = shotData.spreadAngle * (i - (shotData.shotCount - 1) / 2f);
+
+        float angle = baseAngle + angleOffset;
+        float rad = angle * Mathf.Deg2Rad;
+
+        Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
+        SpawnBullet(dir);
+    }*/
+    // 💡 クラスの変数宣言エリア（Updateや関数の外側）にこれを1行足してください
+    // 弾幕全体の傾きを記録しておくための変数です
+    private float nwayRotationOffset = 0f;
+
+    void ShootNWay()
+    {
+        float baseAngle = -90f + nwayRotationOffset;
+
+        for (int i = 0; i < shotData.shotCount; i++)
+        {
+            float angleOffset = shotData.spreadAngle * (i - (shotData.shotCount - 1) / 2f);
+
+            float angle = baseAngle + angleOffset;
+            float rad = angle * Mathf.Deg2Rad;
+
+            Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
+            SpawnBullet(dir);
+        }
+
+        if (nwayRotationOffset == 0f)
+        {
+            nwayRotationOffset = 5f;
+        }
+        else
+        {
+            nwayRotationOffset = 0f;
+        }
+    }
+
 }

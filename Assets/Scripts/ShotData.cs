@@ -19,4 +19,5 @@ public enum ShotType
     Aim,
     Spiral,
     ClusterAim,
+    NWay,
 }
