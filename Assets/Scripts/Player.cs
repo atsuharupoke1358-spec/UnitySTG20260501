@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
 
             if (life <= 0)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
                 SceneManager.LoadScene("GameOverScene");
             }
             else

@@ -51,17 +51,11 @@ public class EnemyShot : MonoBehaviour
 
     void SpawnBullet(Vector2 dir, Vector2 offset = default)
     {
-        GameObject bullet =
-            Instantiate(
-                bulletPrefab,
-                (Vector2)transform.position + offset,
-                Quaternion.identity
-            );
+        Vector2 spawnPos = (Vector2)transform.position + offset;
+        GameObject bullet = BulletPool.Instance.GetBullet(spawnPos, Quaternion.identity);
 
-        EnemyBullet eb =
-            bullet.GetComponent<EnemyBullet>();
-        eb.data = shotData.bulletData;
-        eb.direction = dir;
+        EnemyBullet eb = bullet.GetComponent<EnemyBullet>();
+        eb.Init(shotData.bulletData, dir);
     }
 
     void ShootAim()
