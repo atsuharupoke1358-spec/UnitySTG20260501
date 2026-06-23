@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class EnemyShot : MonoBehaviour
 {
-    public GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletPrefab;
     public ShotData shotData;
-    Player playerScript;
-    Transform player;
-    float angle1 = 0f;
-    float angle2 = 180f;
-    float timer;
+    private Player playerScript;
+    private Transform player;
+    private float angle1 = 0f;
+    private float angle2 = 180f;
+    private float timer; private float nwayRotationOffset = 0f;
     public bool canShoot = true;
 
     void Start()
@@ -130,22 +130,6 @@ public class EnemyShot : MonoBehaviour
             SpawnBullet(baseDir, randomOffset);
         }
     }
-
-    /*float baseAngle = -90f;
-    for (int i = 0; i < shotData.shotCount; i++)
-    {
-        float angleOffset = shotData.spreadAngle * (i - (shotData.shotCount - 1) / 2f);
-
-        float angle = baseAngle + angleOffset;
-        float rad = angle * Mathf.Deg2Rad;
-
-        Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)).normalized;
-        SpawnBullet(dir);
-    }*/
-    // 💡 クラスの変数宣言エリア（Updateや関数の外側）にこれを1行足してください
-    // 弾幕全体の傾きを記録しておくための変数です
-    private float nwayRotationOffset = 0f;
-
     void ShootNWay()
     {
         float baseAngle = -90f + nwayRotationOffset;

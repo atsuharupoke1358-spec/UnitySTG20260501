@@ -5,17 +5,14 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public int maxHp = 100;
-    public int hp = 100;
-    public float speed = 2f;
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private bool stopAtPosition;
+    [SerializeField] private float stopY = 2f;
+    [SerializeField] private GameObject powerItemPrefab;
+    [SerializeField] private GameObject scoreItemPrefab;
+    public int hp { get; private set; }
     public Vector2 moveDirection = Vector2.down;
-    public bool stopAtPosition;
-    public float stopY = 2f;
-    bool isDead = false;
-    public GameObject powerItemPrefab;
-    public GameObject scoreItemPrefab;
-
-
-
+    private bool isDead = false;
     void Update()
     {
         if (stopAtPosition && transform.position.y <= stopY)
@@ -24,17 +21,10 @@ public class Enemy : MonoBehaviour
         }
         transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
         if (
-            transform.position.x <
-                GameConfig.Left - GameConfig.DestroyMargin ||
-
-            transform.position.x >
-                GameConfig.Right + GameConfig.DestroyMargin ||
-
-            transform.position.y <
-                GameConfig.Bottom - GameConfig.DestroyMargin ||
-
-            transform.position.y >
-                GameConfig.Top + GameConfig.DestroyMargin
+            transform.position.x < GameConfig.Left - GameConfig.DestroyMargin ||
+            transform.position.x > GameConfig.Right + GameConfig.DestroyMargin ||
+            transform.position.y < GameConfig.Bottom - GameConfig.DestroyMargin ||
+            transform.position.y > GameConfig.Top + GameConfig.DestroyMargin
         )
         {
             Destroy(gameObject);
@@ -52,6 +42,10 @@ public class Enemy : MonoBehaviour
                 isDead = true;
                 ItemDrop();
                 ScoreManager.AddScore(100);
+                //if (ScoreManager.Instance != null)
+                //{
+                //  ScoreManager.Instance.AddScore(100);
+                //}
                 Destroy(gameObject);
             }
         }

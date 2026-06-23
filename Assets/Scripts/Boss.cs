@@ -4,11 +4,11 @@ using UnityEngine.UI;
 using UnityEngine;
 public class Boss : MonoBehaviour
 {
-    public EnemyShot shot;
-    public ShotData phase1;
-    public ShotData phase2;
-    public ShotData phase3;
-    public ShotData phase4;
+    [SerializeField] private EnemyShot shot;
+    [SerializeField] private ShotData phase1;
+    [SerializeField] private ShotData phase2;
+    [SerializeField] private ShotData phase3;
+    [SerializeField] private ShotData phase4;
     public enum BossState
     {
         Phase1,
@@ -16,26 +16,26 @@ public class Boss : MonoBehaviour
         Phase3,
         Phase4
     }
-    public Enemy Enemy { get; private set; }
-    BossState state;
-    public GameObject hpBar;
-    public Image hpBarFill;
-    public GameObject explosionPrefab;
-    public AudioSource audioSource;
-    public AudioClip BossDeathSE;
+    public Enemy enemy { get; private set; }
+    private BossState state;
+    [SerializeField] private GameObject hpBar;
+    [SerializeField] private Image hpBarFill;
+    [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip bossDeathSE;
     private IBossState _currentState;
-    public IBossState Phase1State { get; private set; }
-    public IBossState Phase2State { get; private set; }
-    public IBossState Phase3State { get; private set; }
-    public IBossState Phase4State { get; private set; }
-    public IBossState DeathState { get; private set; }
+    public IBossState phase1State { get; private set; }
+    public IBossState phase2State { get; private set; }
+    public IBossState phase3State { get; private set; }
+    public IBossState phase4State { get; private set; }
+    public IBossState deathState { get; private set; }
     public interface IBossState
     {
         void OnEnter(Boss boss);  // この状態に入った瞬間
         void OnUpdate(Boss boss); // 毎フレームの処理
         void OnExit(Boss boss);   // この状態から出る瞬間
     }
-    public class BossPhase1State : IBossState
+    private class BossPhase1State : IBossState
     {
         public void OnEnter(Boss boss)
         {
@@ -45,16 +45,16 @@ public class Boss : MonoBehaviour
 
         public void OnUpdate(Boss boss)
         {
-            if (boss.Enemy.hp <= 2000)
+            if (boss.enemy.hp <= 2000)
             {
-                boss.ChangeState(boss.Phase2State);
+                boss.ChangeState(boss.phase2State);
             }
         }
 
         public void OnExit(Boss boss) { }
     }
 
-    public class BossPhase2State : IBossState
+    private class BossPhase2State : IBossState
     {
         public void OnEnter(Boss boss)
         {
@@ -63,16 +63,16 @@ public class Boss : MonoBehaviour
 
         public void OnUpdate(Boss boss)
         {
-            if (boss.Enemy.hp <= 1800)
+            if (boss.enemy.hp <= 1800)
             {
-                boss.ChangeState(boss.Phase3State);
+                boss.ChangeState(boss.phase3State);
             }
         }
 
         public void OnExit(Boss boss) { }
     }
 
-    public class BossPhase3State : IBossState
+    private class BossPhase3State : IBossState
     {
         public void OnEnter(Boss boss)
         {
@@ -81,9 +81,9 @@ public class Boss : MonoBehaviour
 
         public void OnUpdate(Boss boss)
         {
-            if (boss.Enemy.hp <= 1500)
+            if (boss.enemy.hp <= 1500)
             {
-                boss.ChangeState(boss.Phase4State);
+                boss.ChangeState(boss.phase4State);
             }
         }
 
@@ -100,7 +100,7 @@ public class Boss : MonoBehaviour
         public void OnExit(Boss boss) { }
     }
 
-    public class BossDeathState : IBossState
+    private class BossDeathState : IBossState
     {
         public void OnEnter(Boss boss)
         {
@@ -113,29 +113,34 @@ public class Boss : MonoBehaviour
         public void OnUpdate(Boss boss) { }
         public void OnExit(Boss boss) { }
     }
+    public void SetupHpBar(GameObject bar, Image fill)
+    {
+        hpBar = bar;
+        hpBarFill = fill;
+    }
     void Start()
     {
         hpBar.SetActive(false);
-        Enemy = GetComponent<Enemy>();
+        enemy = GetComponent<Enemy>();
 
-        Phase1State = new BossPhase1State();
-        Phase2State = new BossPhase2State();
-        Phase3State = new BossPhase3State();
-        Phase4State = new BossPhase4State();
-        DeathState = new BossDeathState();
+        phase1State = new BossPhase1State();
+        phase2State = new BossPhase2State();
+        phase3State = new BossPhase3State();
+        phase4State = new BossPhase4State();
+        deathState = new BossDeathState();
 
         shot.shotData = phase1;
         StartCoroutine(ShowHpBar());
 
-        ChangeState(Phase1State);
+        ChangeState(phase1State);
     }
 
     void Update()
     {
-        hpBarFill.fillAmount = (float)Enemy.hp / Enemy.maxHp;
-        if (Enemy.hp <= 0 && _currentState is not BossDeathState)
+        hpBarFill.fillAmount = (float)enemy.hp / enemy.maxHp;
+        if (enemy.hp <= 0 && _currentState is not BossDeathState)
         {
-            ChangeState(DeathState);
+            ChangeState(deathState);
             return;
         }
         _currentState?.OnUpdate(this);
@@ -172,7 +177,7 @@ public class Boss : MonoBehaviour
 
         foreach (var b in bullets)
         {
-            Destroy(b.gameObject);
+            b.gameObject.SetActive(false);
         }
     }
     IEnumerator ShowHpBar()
@@ -198,7 +203,7 @@ public class Boss : MonoBehaviour
                 randomPos,
                 Quaternion.identity
             );
-            audioSource.PlayOneShot(BossDeathSE, 0.3f);
+            audioSource.PlayOneShot(bossDeathSE, 0.3f);
 
             float strength = 0.1f + i * 0.02f;
 
@@ -207,6 +212,7 @@ public class Boss : MonoBehaviour
             yield return new WaitForSeconds(0.15f);
         }
         ScoreManager.AddScore(5000);
+        //ScoreManager.Instance.AddScore(5000);
 
         GetComponent<SpriteRenderer>().enabled = false;
 
@@ -241,4 +247,5 @@ public class Boss : MonoBehaviour
 
         Camera.main.transform.position = startPos;
     }
+
 }

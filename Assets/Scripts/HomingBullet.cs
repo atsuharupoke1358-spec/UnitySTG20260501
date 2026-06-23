@@ -3,8 +3,8 @@ using UnityEngine;
 public class HomingBullet : MonoBehaviour
 {
     public float speed = 6f;
-    Transform target;
-    int power;
+    public int power { get; set; }
+    private Transform target;
 
     public void SetPower(int p)
     {

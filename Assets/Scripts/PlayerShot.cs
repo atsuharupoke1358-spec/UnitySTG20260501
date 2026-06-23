@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class PlayerShot : MonoBehaviour
 {
-    public GameObject laserPrefab;
-    public GameObject homingPrefab;
-    public GameObject straightPrefab;
+    [SerializeField] private GameObject laserPrefab;
+    [SerializeField] private GameObject homingPrefab;
+    [SerializeField] private GameObject straightPrefab;
 
-    public float fireRate = 0.15f;
+    [SerializeField] private float fireRate = 0.15f;
     private float nextFireTime;
     bool isSlowMode;
     private GameObject currentLaser;
     public bool isLaserMode;
     int lastLaserPower;
     Player player;
-    public Transform[] homingPoints;
-    public Transform[] straightPoints;
-    public Transform[] laserPoints;
+    [SerializeField] private Transform[] homingPoints;
+    [SerializeField] private Transform[] straightPoints;
+    [SerializeField] private Transform[] laserPoints;
     List<GameObject> currentLasers = new List<GameObject>();
-    public AudioSource audioSource;
-    public AudioClip HomingShotSE;
-    public AudioClip LaserShotSE;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip homingShotSE;
+    [SerializeField] private AudioClip laserShotSE;
     void Start()
     {
         player = GetComponent<Player>();
@@ -52,12 +52,12 @@ public class PlayerShot : MonoBehaviour
         ShootStraight();
         if (isLaserMode)
         {
-            audioSource.PlayOneShot(LaserShotSE, 0.2f);
+            audioSource.PlayOneShot(laserShotSE, 0.2f);
             ShootLaser();
         }
         else
         {
-            audioSource.PlayOneShot(HomingShotSE, 0.3f);
+            audioSource.PlayOneShot(homingShotSE, 0.3f);
             ShootHoming();
         }
     }

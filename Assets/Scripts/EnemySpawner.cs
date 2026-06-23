@@ -75,7 +75,9 @@ public class EnemySpawner : MonoBehaviour
 
         Boss bossScript = boss.GetComponent<Boss>();
 
-        bossScript.hpBar = hpBar;
-        bossScript.hpBarFill = hpBarFill;
+        if (bossScript != null)
+        {
+            bossScript.SetupHpBar(hpBar, hpBarFill);
+        }
     }
 }

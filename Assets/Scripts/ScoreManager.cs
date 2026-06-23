@@ -5,7 +5,7 @@ public class ScoreManager : MonoBehaviour
 {
     public static int score;
 
-    public TMP_Text scoreText;
+    [SerializeField] private TMP_Text scoreText;
 
     void Start()
     {

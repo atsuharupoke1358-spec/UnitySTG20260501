@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int speed = 5;
-    public int slowSpeed = 2;
-    public int life = 3;
-    public Vector3 respawnPosition = new Vector3(-3, 0, 0);
-    bool isInvincible = false;
+    [SerializeField] private int speed = 5;
+    [SerializeField] private int slowSpeed = 2;
+    [SerializeField] private int life = 3;
+    [SerializeField] private Vector3 respawnPosition = new Vector3(-3, 0, 0);
+    private bool isInvincible = false;
     public bool isDead;
     public int laserPower = 1;
     public int homingPower = 1;
-    PlayerShot playerShot;
-    public AudioSource audioSource;
-    public AudioClip hitSE;
+    private PlayerShot playerShot;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hitSE;
     void Start()
     {
         playerShot = GetComponent<PlayerShot>();

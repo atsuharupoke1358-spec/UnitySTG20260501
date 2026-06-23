@@ -5,9 +5,8 @@ using UnityEngine;
 public class LaserBullet : MonoBehaviour
 {
     public Transform player;
-    public Vector3 offset = new Vector3(0, 1f, 0);
-
-    int power;
+    [SerializeField] private Vector3 offset = new Vector3(0, 1f, 0);
+    public int power;
 
     public void SetPower(int p)
     {
