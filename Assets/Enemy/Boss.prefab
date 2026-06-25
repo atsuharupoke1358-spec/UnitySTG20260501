@@ -79,8 +79,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 341345212, guid: 704b705ce3b374e94a8255fbcc623a4f, type: 3}
+  m_Color: {r: 0.8113208, g: 0.57189506, b: 0.56256676, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -103,13 +103,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 2000
-  hp: 2000
   speed: 2
-  moveDirection: {x: 0, y: -1}
   stopAtPosition: 1
   stopY: 3
   powerItemPrefab: {fileID: 5758206996995046870, guid: a655cc1d1bad143c0ace0de40a14756f, type: 3}
   scoreItemPrefab: {fileID: 9131324336745594536, guid: 15fa412bb2e554cb4891a0ca127778bd, type: 3}
+  moveDirection: {x: 0, y: -1}
 --- !u!114 &1592642843173838697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +130,7 @@ MonoBehaviour:
   hpBarFill: {fileID: 0}
   explosionPrefab: {fileID: 3951988316812836550, guid: 9bdaf5d12bb99401f89a47c448cafe82, type: 3}
   audioSource: {fileID: -529128543656249698}
-  BossDeathSE: {fileID: 8300000, guid: c65990ec058004a319d8db1a1b17a9e6, type: 3}
+  bossDeathSE: {fileID: 0}
 --- !u!114 &6217653762225337979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +207,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!82 &-529128543656249698
 AudioSource:
   m_ObjectHideFlags: 0
