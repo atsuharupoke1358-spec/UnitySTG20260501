@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8939465869960613823, guid: fcb015d653edc47bf866943d89ca2789, type: 3}
-  bulletData: {fileID: 11400000, guid: 9e0da1da07a2f4c2180794b20883548b, type: 2}
   shotData: {fileID: 11400000, guid: 040498d8f098d47d195fa8a9b1545e84, type: 2}
+  canShoot: 1
 --- !u!114 &3086802610812938914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,13 +115,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a81a176754449e8ad6a11120ac4fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
-  speed: 2
-  moveDirection: {x: 0, y: -1}
+  maxHp: 300
+  speed: 5
   stopAtPosition: 1
   stopY: 3
   powerItemPrefab: {fileID: 5758206996995046870, guid: a655cc1d1bad143c0ace0de40a14756f, type: 3}
   scoreItemPrefab: {fileID: 9131324336745594536, guid: 15fa412bb2e554cb4891a0ca127778bd, type: 3}
+  moveDirection: {x: 0, y: -1}
 --- !u!50 &1094610030501267019
 Rigidbody2D:
   serializedVersion: 4

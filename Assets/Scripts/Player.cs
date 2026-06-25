@@ -146,7 +146,6 @@ public class Player : MonoBehaviour
         if (playerShot.isLaserMode)
         {
             laserPower++;
-            Debug.Log(laserPower);
         }
         else
         {

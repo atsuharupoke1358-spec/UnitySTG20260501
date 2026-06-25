@@ -13,6 +13,10 @@ public class Enemy : MonoBehaviour
     public int hp { get; private set; }
     public Vector2 moveDirection = Vector2.down;
     private bool isDead = false;
+    void Start()
+    {
+        hp = maxHp;
+    }
     void Update()
     {
         if (stopAtPosition && transform.position.y <= stopY)

@@ -101,14 +101,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a81a176754449e8ad6a11120ac4fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 4000
-  hp: 4000
+  maxHp: 1000
   speed: 3
-  moveDirection: {x: 0, y: -1}
   stopAtPosition: 0
   stopY: 0
   powerItemPrefab: {fileID: 5758206996995046870, guid: a655cc1d1bad143c0ace0de40a14756f, type: 3}
   scoreItemPrefab: {fileID: 9131324336745594536, guid: 15fa412bb2e554cb4891a0ca127778bd, type: 3}
+  moveDirection: {x: 0, y: -1}
 --- !u!114 &6217653762225337979
 MonoBehaviour:
   m_ObjectHideFlags: 0
