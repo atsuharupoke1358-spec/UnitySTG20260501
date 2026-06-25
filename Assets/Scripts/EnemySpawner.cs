@@ -56,9 +56,10 @@ public class EnemySpawner : MonoBehaviour
     }
     void SpawnChaseEnemy(Vector3 pos)
     {
-        GameObject prefab = Resources.Load<GameObject>("ChaseEnemy");
-
-        Instantiate(prefab, pos, Quaternion.identity);
+        if (chaseEnemyPrefab != null)
+        {
+            Instantiate(chaseEnemyPrefab, pos, Quaternion.identity);
+        }
     }
 
     void SpawnBoss()
