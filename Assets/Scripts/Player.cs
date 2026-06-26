@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public GameObject bombPrefab;
     public int bombStock = 2;
     [SerializeField] private AudioClip bombSE;
+    float paddingX = 0.5f;
+    float paddingY = 0.5f;
     void Start()
     {
         playerShot = GetComponent<PlayerShot>();
@@ -62,19 +64,17 @@ public class Player : MonoBehaviour
         transform.position += dir * currentSpeed * Time.deltaTime;
 
         // 範囲制限
-        float px =
-            Mathf.Clamp(
-                transform.position.x,
-                GameConfig.Left,
-                GameConfig.Right
-            );
+        float px = Mathf.Clamp(
+            transform.position.x,
+            GameConfig.Left + paddingX,
+            GameConfig.Right - paddingX
+        );
 
-        float py =
-            Mathf.Clamp(
-                transform.position.y,
-                GameConfig.Bottom,
-                GameConfig.Top
-            );
+        float py = Mathf.Clamp(
+            transform.position.y,
+            GameConfig.Bottom + paddingY,
+            GameConfig.Top - paddingY
+        );
 
         transform.position =
             new Vector3(px, py, 0);

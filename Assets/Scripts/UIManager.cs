@@ -26,12 +26,12 @@ public class UIManager : MonoBehaviour
 
         if (lifeText != null)
         {
-            lifeText.text = player.life.ToString("D3");
+            lifeText.text = "Life\n" + player.life.ToString("D3");
         }
 
         if (bombText != null)
         {
-            bombText.text = player.bombStock.ToString("D3");
+            bombText.text = "Bomb\n" + player.bombStock.ToString("D3");
         }
     }
 

@@ -130,7 +130,7 @@ MonoBehaviour:
   hpBarFill: {fileID: 0}
   explosionPrefab: {fileID: 3951988316812836550, guid: 9bdaf5d12bb99401f89a47c448cafe82, type: 3}
   audioSource: {fileID: -529128543656249698}
-  bossDeathSE: {fileID: 0}
+  bossDeathSE: {fileID: 8300000, guid: c65990ec058004a319d8db1a1b17a9e6, type: 3}
 --- !u!114 &6217653762225337979
 MonoBehaviour:
   m_ObjectHideFlags: 0

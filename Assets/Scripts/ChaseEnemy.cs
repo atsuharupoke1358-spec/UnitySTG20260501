@@ -26,10 +26,10 @@ public class ChaseEnemy : MonoBehaviour
     {
         private Vector3[] patrolPoints = new Vector3[]
         {
-            new Vector3(3, -3, 0),  // 最初の目標
-            new Vector3(-3, -3, 0), // 2番目の目標
-            new Vector3(-3, 3, 0),  // 3番目の目標
-            new Vector3(3, 3, 0)    // 4番目の目標
+            new Vector3(2, -2, 0),  // 最初の目標
+            new Vector3(-2, -2, 0), // 2番目の目標
+            new Vector3(-2, 2, 0),  // 3番目の目標
+            new Vector3(2, 2, 0)    // 4番目の目標
         };
         private int currentPointIndex = 0;
         public void OnEnter(ChaseEnemy enemy)

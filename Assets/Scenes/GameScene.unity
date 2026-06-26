@@ -1138,7 +1138,7 @@ GameObject:
   - component: {fileID: 1065417841}
   - component: {fileID: 1065417842}
   m_Layer: 0
-  m_Name: ScoreManager
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,6 +1172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 384301271}
+  lifeText: {fileID: 1711325120}
+  bombText: {fileID: 1213902246}
 --- !u!1 &1213902244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,6 +2956,14 @@ PrefabInstance:
     - target: {fileID: 3423030037234014271, guid: 9b8ccf5c6b04f42b7a0ccf338f5c9a3b, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735328331475241305, guid: 9b8ccf5c6b04f42b7a0ccf338f5c9a3b, type: 3}
+      propertyPath: duration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8735328331475241305, guid: 9b8ccf5c6b04f42b7a0ccf338f5c9a3b, type: 3}
+      propertyPath: expandSpeed
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
