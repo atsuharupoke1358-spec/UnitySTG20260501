@@ -8,6 +8,6 @@ public class ClearManager : MonoBehaviour
     void Start()
     {
         scoreText.text =
-            "SCORE\n" + ScoreManager.score;
+            "SCORE\n" + UIManager.score;
     }
 }

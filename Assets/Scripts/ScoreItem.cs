@@ -6,7 +6,7 @@ public class ScoreItem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            ScoreManager.AddScore(1000);
+            UIManager.AddScore(1000);
 
             Destroy(gameObject);
         }

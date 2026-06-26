@@ -211,7 +211,7 @@ public class Boss : MonoBehaviour
 
             yield return new WaitForSeconds(0.15f);
         }
-        ScoreManager.AddScore(5000);
+        UIManager.AddScore(5000);
         //ScoreManager.Instance.AddScore(5000);
 
         GetComponent<SpriteRenderer>().enabled = false;

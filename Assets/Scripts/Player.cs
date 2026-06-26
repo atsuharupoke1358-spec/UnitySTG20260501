@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int speed = 5;
     [SerializeField] private int slowSpeed = 2;
-    [SerializeField] private int life = 3;
+    public int life = 3;
     [SerializeField] private Vector3 respawnPosition = new Vector3(-3, 0, 0);
     private bool isInvincible = false;
     public bool isDead;
@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     private PlayerShot playerShot;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip hitSE;
+    public GameObject bombPrefab;
+    public int bombStock = 2;
+    [SerializeField] private AudioClip bombSE;
     void Start()
     {
         playerShot = GetComponent<PlayerShot>();
@@ -75,6 +78,11 @@ public class Player : MonoBehaviour
 
         transform.position =
             new Vector3(px, py, 0);
+
+        if (Input.GetKeyDown(KeyCode.X) && bombStock > 0 && !isInvincible)
+        {
+            UseBomb();
+        }
     }
     //時期破壊
     void OnTriggerEnter2D(Collider2D other)
@@ -170,5 +178,26 @@ public class Player : MonoBehaviour
         }
 
         sr.color = originalColor;
+    }
+    void UseBomb()
+    {
+        bombStock--;
+
+        if (audioSource != null && bombSE != null)
+        {
+            audioSource.PlayOneShot(bombSE, 0.5f);
+        }
+
+        if (bombPrefab != null)
+        {
+            Instantiate(bombPrefab, transform.position, Quaternion.identity);
+        }
+        StartCoroutine(BombInvincible());
+    }
+    IEnumerator BombInvincible()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(1.5f);
+        isInvincible = false;
     }
 }
