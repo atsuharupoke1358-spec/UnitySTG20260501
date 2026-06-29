@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a81a176754449e8ad6a11120ac4fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 500
   speed: 1
   stopAtPosition: 1
   stopY: 3

@@ -339,6 +339,22 @@ PrefabInstance:
       propertyPath: explosionPrefab
       value: 
       objectReference: {fileID: 652252201}
+    - target: {fileID: 1592642843173838697, guid: 2283c2832ec9d4147b334ab02f979126, type: 3}
+      propertyPath: phase2Threshold
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592642843173838697, guid: 2283c2832ec9d4147b334ab02f979126, type: 3}
+      propertyPath: phase3Threshold
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592642843173838697, guid: 2283c2832ec9d4147b334ab02f979126, type: 3}
+      propertyPath: phase4Threshold
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3086802610812938914, guid: 2283c2832ec9d4147b334ab02f979126, type: 3}
+      propertyPath: maxHp
+      value: 8000
+      objectReference: {fileID: 0}
     - target: {fileID: 3086802610812938914, guid: 2283c2832ec9d4147b334ab02f979126, type: 3}
       propertyPath: speed
       value: 5

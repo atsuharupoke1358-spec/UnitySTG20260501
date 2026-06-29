@@ -9,6 +9,11 @@ public class Boss : MonoBehaviour
     [SerializeField] private ShotData phase2;
     [SerializeField] private ShotData phase3;
     [SerializeField] private ShotData phase4;
+
+    [Header("フェーズ移行HPしきい値")]
+    [SerializeField] private int phase2Threshold = 6000;
+    [SerializeField] private int phase3Threshold = 4000;
+    [SerializeField] private int phase4Threshold = 2000;
     public enum BossState
     {
         Phase1,
@@ -45,7 +50,7 @@ public class Boss : MonoBehaviour
 
         public void OnUpdate(Boss boss)
         {
-            if (boss.enemy.hp <= 2000)
+            if (boss.enemy.hp <= boss.phase2Threshold)
             {
                 boss.ChangeState(boss.phase2State);
             }
@@ -63,7 +68,7 @@ public class Boss : MonoBehaviour
 
         public void OnUpdate(Boss boss)
         {
-            if (boss.enemy.hp <= 1800)
+            if (boss.enemy.hp <= boss.phase3Threshold)
             {
                 boss.ChangeState(boss.phase3State);
             }
@@ -81,7 +86,7 @@ public class Boss : MonoBehaviour
 
         public void OnUpdate(Boss boss)
         {
-            if (boss.enemy.hp <= 1500)
+            if (boss.enemy.hp <= boss.phase4Threshold)
             {
                 boss.ChangeState(boss.phase4State);
             }
