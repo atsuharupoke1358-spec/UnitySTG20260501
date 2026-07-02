@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text lifeText;
     [SerializeField] private TMP_Text bombText;
+    [SerializeField] private TMP_Text laserPowerText;
+    [SerializeField] private TMP_Text homingPowerText;
     private Player player;
 
     void Start()
@@ -32,6 +34,14 @@ public class UIManager : MonoBehaviour
         if (bombText != null)
         {
             bombText.text = "Bomb\n" + player.bombStock.ToString("D3");
+        }
+        if (laserPowerText != null)
+        {
+            laserPowerText.text = "Laser Pw\n" + player.laserPower.ToString("D2");
+        }
+        if (homingPowerText != null)
+        {
+            homingPowerText.text = "Homing Pw\n" + player.homingPower.ToString("D2");
         }
     }
 
