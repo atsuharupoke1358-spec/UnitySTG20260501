@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a81a176754449e8ad6a11120ac4fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 12000
+  maxHp: 14000
   speed: 2
   stopAtPosition: 1
   stopY: 3
@@ -126,8 +126,8 @@ MonoBehaviour:
   phase2: {fileID: 11400000, guid: addc739402e814f1eb74378c6b0f0bc3, type: 2}
   phase3: {fileID: 11400000, guid: 5278def6e654d4b9f96d6333862de9e4, type: 2}
   phase4: {fileID: 11400000, guid: 5f6f97c8850ec4610940166ff6b3683b, type: 2}
-  phase2Threshold: 9000
-  phase3Threshold: 6000
+  phase2Threshold: 11500
+  phase3Threshold: 7000
   phase4Threshold: 3000
   hpBar: {fileID: 0}
   hpBarFill: {fileID: 0}

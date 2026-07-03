@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: -2413806693520163455, guid: 5fac3156251ea444ca796469cc02f122, type: 3}
   color: {r: 0.24152224, g: 1, b: 0.23113209, a: 1}
-  speed: 2
+  speed: 6
   damage: 1
   scale: 0.45
