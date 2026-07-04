@@ -4,6 +4,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public static int score;
+    private static int highScore;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text lifeText;
     [SerializeField] private TMP_Text bombText;
@@ -15,6 +16,7 @@ public class UIManager : MonoBehaviour
     {
         score = 0;
         player = FindFirstObjectByType<Player>();
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
     }
 
     void Update()
@@ -48,5 +50,11 @@ public class UIManager : MonoBehaviour
     public static void AddScore(int amount)
     {
         score += amount;
+        if (score > highScore)
+        {
+            highScore = score;
+            PlayerPrefs.SetInt("HighScore", highScore);
+            PlayerPrefs.Save();
+        }
     }
 }
