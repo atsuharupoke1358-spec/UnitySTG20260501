@@ -50,5 +50,9 @@ public class BombEffect : MonoBehaviour
                 enemyScript.TakeDamage(bombDamage);
             }
         }
+        if (other.CompareTag("EnemyBullet"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }
