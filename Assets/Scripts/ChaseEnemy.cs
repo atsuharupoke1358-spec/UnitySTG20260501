@@ -110,8 +110,6 @@ public class ChaseEnemy : MonoBehaviour
                 Debug.Log("go changestate");
                 enemy.ChangeState(enemy.chaseState);
             }
-            //Vector3 dir = (enemy.player.position - enemy.transform.position).normalized;
-            //enemy.transform.position += dir * (enemy.chaseSpeed * 0.3f) * Time.deltaTime;
         }
         public void OnExit(ChaseEnemy enemy)
         {

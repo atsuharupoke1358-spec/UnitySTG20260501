@@ -46,10 +46,6 @@ public class Enemy : MonoBehaviour
                 isDead = true;
                 ItemDrop();
                 UIManager.AddScore(100);
-                //if (ScoreManager.Instance != null)
-                //{
-                //  ScoreManager.Instance.AddScore(100);
-                //}
                 Destroy(gameObject);
             }
         }
